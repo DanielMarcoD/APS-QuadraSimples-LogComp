@@ -1,4 +1,4 @@
-# Linguagem para facilitar quem joga tênis.
+# QuadraSimples
 
 ```ebnf
 PROGRAM = { STATEMENT } ;
