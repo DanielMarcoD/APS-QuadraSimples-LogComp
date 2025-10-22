@@ -48,3 +48,30 @@ DIGIT      = ( 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 0 ) ;
 
 
 ```
+
+## Como executar
+
+### Compilação
+Para compilar o projeto, execute:
+```bash
+make
+```
+
+### Execução
+Para executar o interpretador com um arquivo de exemplo:
+```bash
+./quadrasimples < examples/demo.qs
+```
+
+### Estrutura dos arquivos
+- `examples/demo.qs`: Arquivo de exemplo com código QuadraSimples
+- `lexer.l`: Definições do analisador léxico (Flex)
+- `parser.y`: Definições do analisador sintático (Bison)
+- `main.c`: Arquivo principal do interpretador
+
+### Exemplo de uso
+O arquivo `examples/demo.qs` contém um exemplo completo que demonstra:
+- Definição de sessões de treino
+- Estruturas de controle (while, if/else)
+- Operações aritméticas e lógicas
+- Configurações específicas do tênis
