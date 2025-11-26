@@ -27,6 +27,7 @@
             padding: 0;
             background: white;
             color: #000;
+            font-size: 16px;
         }
         .slide {
             background: white;
@@ -40,18 +41,18 @@
             color: #1a1a1a;
             border-bottom: 3px solid #333;
             padding-bottom: 10px;
-            font-size: 2.2em;
+            font-size: 2.8em;
             margin-top: 0;
         }
         h2 {
             color: #333;
             margin-top: 25px;
-            font-size: 1.8em;
+            font-size: 2.2em;
         }
         h3 {
             color: #444;
             margin-top: 15px;
-            font-size: 1.4em;
+            font-size: 1.8em;
         }
         pre {
             background: #f4f4f4;
@@ -60,42 +61,45 @@
             border: 1px solid #ddd;
             border-radius: 4px;
             overflow-x: auto;
-            font-size: 0.85em;
+            font-size: 1.1em;
             font-family: 'Courier New', Courier, monospace;
-            line-height: 1.4;
+            line-height: 1.5;
         }
         code {
             background: #f4f4f4;
             padding: 2px 6px;
             border-radius: 3px;
             font-family: 'Courier New', Courier, monospace;
-            font-size: 0.9em;
+            font-size: 1.1em;
         }
         ul, ol {
             margin: 15px 0;
             padding-left: 35px;
+            font-size: 1.2em;
         }
         li {
-            margin: 8px 0;
-            line-height: 1.5;
+            margin: 10px 0;
+            line-height: 1.6;
         }
         .highlight {
             background: #fffbea;
-            padding: 12px;
+            padding: 15px;
             border-left: 4px solid #666;
             margin: 15px 0;
             overflow-wrap: break-word;
+            font-size: 1.15em;
         }
         .highlight p {
             white-space: normal;
         }
         .success {
             background: #f0f8f0;
-            padding: 12px;
+            padding: 15px;
             border-left: 4px solid #333;
             margin: 15px 0;
             white-space: nowrap;
             overflow: visible;
+            font-size: 1.15em;
         }
         .success br {
             content: ' ';
@@ -104,15 +108,15 @@
             width: 100%;
             border-collapse: collapse;
             margin: 15px 0;
-            font-size: 0.7em;
+            font-size: 1.05em;
             table-layout: auto;
         }
         th, td {
-            padding: 6px 5px;
+            padding: 8px 6px;
             text-align: left;
             border: 1px solid #999;
             white-space: nowrap;
-            font-size: 0.7em;
+            font-size: 1.0em;
             overflow: hidden;
         }
         th {
@@ -194,11 +198,11 @@
         </tr>
         <tr>
             <td><strong>Comandos de Tênis</strong></td>
-            <td><code>sessao</code>, <code>etapa</code>, <code>saque</code>, <code>rally</code>, <code>point</code>, <code>ace</code>, <code>doublefault</code></td>
+            <td><code>sessao</code>, <code>etapa</code>, <code>saque</code>, <code>rally</code>, <code>point</code>, <code>ace</code>, <code>double_fault</code></td>
         </tr>
         <tr>
             <td><strong>Gerenciamento de Jogo</strong></td>
-            <td><code>start</code>, <code>score</code>, <code>rename</code>, <code>config</code></td>
+            <td><code>start_match</code>, <code>score</code>, <code>rename</code>, <code>config</code></td>
         </tr>
         <tr>
             <td><strong>Tipos de Dados</strong></td>
@@ -211,26 +215,28 @@
 <div class="slide">
     <h1>Exemplo: Treino Básico Completo</h1>
     <pre>
-# Programa de treino estruturado
 sessao("Treino de Fundamentos") {
     etapa("Aquecimento", dur=15);
-    log("Iniciando aquecimento...");
     
-    # Loop de exercícios de rally
     contador = 0;
     while (contador < 10) {
-        rally(A, "Forehand cruzado");
-        rally(B, "Backhand paralelo");
+        rally(8);
+        point(A);
         contador = contador + 1;
-        log("Repetição completada");
-    }
+    };
     
     descanso(5);
-    log("Descanso de 5 minutos");
     
     etapa("Saques", reps=20);
-    log("Treino finalizado!");
+    saque(A, "deuce");
+    saque(B, "ad");
 }
+
+config(no_ad = true);
+start_match(3, 6);
+point(A);
+ace(B);
+score();
 </pre>
     <div class="success" style="margin-top: 15px;">
         <strong>Vantagens:</strong> Sintaxe clara e legível - Mistura comandos de domínio com lógica imperativa - Fácil de entender mesmo sem conhecer tênis.
@@ -241,27 +247,22 @@ sessao("Treino de Fundamentos") {
 <div class="slide">
     <h1>Exemplo: Simulação de Partida Completa</h1>
     <pre>
-# Configuração da partida
-start("Nadal", "Federer");
-config("no_ad", 0);
+start_match(3, 6);
+config(no_ad = true);
+rename(A, "Nadal");
+rename(B, "Federer");
 
-# Primeiro game - Nadal sacando
-saque(A, "Ace no T");
-ace(A);                    # 15-0
-rally(A, "Forehand winner");
-point(A);                  # 30-0
-rally(B, "Backhand passing shot");
-point(B);                  # 30-15
-saque(A, "Kick serve");
-rally(A, "Smash");
-point(A);                  # 40-15
-ace(A);                    # Game Nadal
+saque(A, "deuce");
+rally(8);
+point(A);
+double_fault(B);
+
+saque(B, "ad");
+rally(12);
+point(B);
+ace(B);
+
 score();
-
-# Segundo game - Federer sacando
-saque(B, "Slice aberto");
-rally(B, "Backhand down the line");
-point(B);                  # 0-15
 </pre>
     <div class="highlight" style="margin-top: 10px;">
         <strong>Saída:</strong> Placar profissional com box-drawing Unicode.
@@ -270,44 +271,41 @@ point(B);                  # 0-15
 
 <!-- SLIDE 6: GRAMÁTICA EBNF -->
 <div class="slide">
-    <h1>Gramática EBNF Completa</h1>
-    <pre>
-PROGRAM = { STATEMENT } ;
+    <h1>Gramática EBNF - Resumo Estrutural</h1>
+    <pre style="font-size: 0.9em; line-height: 1.4;">
+program = { statement } ;
 
-STATEMENT = BLOCK | IF_STMT | WHILE_STMT | SESSAO_STMT 
-          | TENNIS_CMD | ASSIGNMENT | EXPRESSION, ";" ;
+statement = expr_stmt | if_stmt | while_stmt | sessao_stmt | block ;
 
-BLOCK = "{", { STATEMENT }, "}" ;
+<strong>Expressões:</strong>
+expr_stmt = assignment | log_stmt | print_stmt | etapa_stmt 
+          | saque_stmt | rally_stmt | point_stmt | ace_stmt 
+          | score_stmt | rename_stmt | config_stmt ;
 
-IF_STMT = "if", "(", BOOL_EXPR, ")", BLOCK, [ "else", BLOCK ], ";" ;
+<strong>Controle de Fluxo:</strong>
+if_stmt    = "if" "(" bool_expr ")" block [ "else" block ] ";" ;
+while_stmt = "while" "(" bool_expr ")" block ";" ;
 
-WHILE_STMT = "while", "(", BOOL_EXPR, ")", BLOCK, ";" ;
+<strong>DSL de Tênis:</strong>
+sessao_stmt = "sessao" "(" string ")" block ";" ;
+etapa_stmt  = "etapa" "(" string "," etapa_type "=" expression ")" ";" ;
+rally_stmt  = "rally" "(" expression ")" ";" ;
+point_stmt  = "point" "(" player ")" ";" ;
 
-SESSAO_STMT = "sessao", "(", STRING, ")", BLOCK, ";" ;
+<strong>Expressões Booleanas:</strong>
+bool_expr  = bool_term { "||" bool_term } ;
+bool_term  = rel_expr { "&&" rel_expr } ;
+rel_expr   = expression [ ("===" | ">" | "<") expression ] ;
 
-TENNIS_CMD = START_CMD | POINT_CMD | ACE_CMD | DOUBLEFAULT_CMD 
-           | SAQUE_CMD | RALLY_CMD | SCORE_CMD | CONFIG_CMD 
-           | ETAPA_CMD | DESCANSO_CMD | RENAME_CMD ;
-
-ASSIGNMENT = IDENTIFIER, "=", EXPRESSION, ";" ;
-
-BOOL_EXPR = REL_EXPR, { ("&&" | "||"), REL_EXPR } ;
-
-REL_EXPR = EXPRESSION, [ ("==" | "!=" | "<" | ">" | "<=" | ">="), EXPRESSION ] ;
-
-EXPRESSION = TERM, { ("+" | "-"), TERM } ;
-
-TERM = FACTOR, { ("*" | "/"), FACTOR } ;
-
-FACTOR = "(", EXPRESSION, ")" | NUMBER | IDENTIFIER 
-       | READLINE_EXPR | STRING | PLAYER ;
-
-PLAYER = "A" | "B" ;
-
-NUMBER = DIGIT, { DIGIT } ;
-
-DIGIT = "0" | "1" | ... | "9" ;
+<strong>Expressões Aritméticas:</strong>
+expression = term { ("+" | "-") term } ;
+term       = factor { ("*" | "/") factor } ;
+factor     = number | identifier | sensor | "(" bool_expr ")" 
+           | "+" factor | "-" factor | "!" factor ;
 </pre>
+    <div class="highlight" style="margin-top: 10px; font-size: 1.05em;">
+        <strong>Documentação completa:</strong> <code>docs/gramatica-ebnf.md</code> 
+    </div>
 </div>
 
 <!-- SLIDE 7: ARQUITETURA -->
@@ -352,7 +350,11 @@ DIGIT = "0" | "1" | ... | "9" ;
         </tr>
         <tr>
             <td><strong>Variáveis</strong></td>
-            <td>128 slots para armazenamento (sensores read-only)</td>
+            <td>128 slots para armazenamento</td>
+        </tr>
+        <tr>
+            <td><strong>Sensores read-only</strong></td>
+            <td><code>last_rally</code>, <code>total_points</code></td>
         </tr>
         <tr>
             <td><strong>Registradores</strong></td>
@@ -439,14 +441,11 @@ DIGIT = "0" | "1" | ... | "9" ;
             <td><code>Makefile</code></td>
         </tr>
     </table>
-    <div class="success">
-        <strong>Compilação sem warnings</strong> (<code>-Wall -Wextra</code>) - <strong>Padrão POSIX C com extensões GNU</strong>
-    </div>
 </div>
 
 <!-- SLIDE 12: EXEMPLOS DE TESTE -->
 <div class="slide">
-    <h1>Exemplos de Teste (8 programas)</h1>
+    <h1>Exemplos de Teste (9 programas)</h1>
     <table>
         <tr>
             <th>Arquivo</th>
@@ -481,6 +480,10 @@ DIGIT = "0" | "1" | ... | "9" ;
             <td>Treino interativo de rally com entrada do usuário</td>
         </tr>
         <tr>
+            <td><code>sensores_demo.qs</code></td>
+            <td>Demonstração de sensores read-only (last_rally, total_points)</td>
+        </tr>
+        <tr>
             <td><code>test_print.qs</code></td>
             <td>Testes do comando print() com diferentes tipos de dados</td>
         </tr>
@@ -512,10 +515,10 @@ DIGIT = "0" | "1" | ... | "9" ;
     <h3>Configuração Personalizada de Partida</h3>
     <pre>
 # Modo tradicional (advantage)
-config("no_ad", 0);
+config(no_ad = 0);
 
 # Modo rápido (no advantage - ponto de ouro em 40-40)
-config("no_ad", 1);
+config(no_ad = 1);
 </pre>
     <div class="highlight">
         <p><strong>No-Ad Tennis:</strong> Formato usado em competições rápidas onde em 40-40 não há "vantagem", 
@@ -539,12 +542,12 @@ config("no_ad", 1);
             <td>Saque direto, sem toque do adversário</td>
         </tr>
         <tr>
-            <td><code>doublefault(player)</code></td>
+            <td><code>double_fault(player)</code></td>
             <td>Duas falhas de saque consecutivas</td>
         </tr>
         <tr>
-            <td><code>rally(player, tipo)</code></td>
-            <td>Troca de bolas (forehand, backhand, slice, etc.)</td>
+            <td><code>rally(num_trocas)</code></td>
+            <td>Simula troca de bolas no ponto (número de golpes)</td>
         </tr>
         <tr>
             <td><code>descanso(mins)</code></td>
@@ -571,10 +574,10 @@ APS-QuadraSimples-LogComp/
 ├── main.c               # Entry point do compilador
 ├── quadravm.c           # Máquina virtual
 ├── Makefile             # Sistema de build
-├── README.md            # Documentação completa (400+ linhas)
+├── README.md            # Documentação completa 
 ├── docs/
-│   ├── gramatica-ebnf.md        # EBNF formal (317 linhas)
-│   └── QuadraSimples-APS-slides.md  # Apresentação original
+│   ├── gramatica-ebnf.md        # EBNF formal 
+│   └── QuadraSimples-APS-slides.html  # Apresentação original
 └── examples/
     ├── demo.qs
     ├── treino_basico.qs
@@ -583,6 +586,7 @@ APS-QuadraSimples-LogComp/
     ├── loops.qs
     ├── match_simulation.qs
     ├── rally.qs
+    ├── sensores_demo.qs
     └── test_print.qs
 </pre>
 </div>
@@ -611,9 +615,6 @@ $ ./quadrasimples examples/partida_completa.qs && ./quadravm out.qvm
 <!-- SLIDE 18: CONCEITO BÔNUS -->
 <div class="slide">
     <h1>Conceito Bônus: QuadraVM - Implementação Própria</h1>
-    <div class="success" style="font-size: 1.1em; padding: 20px;">
-        <strong>+1 Conceito:</strong> "Criação de nova VM: +1 conceito. A nota final do APS poderá extrapolar o A+ e contabilizar mais pontos na média final."
-    </div>
     <h3 style="margin-top: 25px;">Por que criar uma VM do zero?</h3>
     <p style="font-size: 1.05em;">Em vez de usar máquinas virtuais prontas como LLVM ou Python, desenvolvi a <strong>QuadraVM em C</strong> para ter controle total sobre o comportamento da linguagem:</p>
     <ul style="font-size: 1.0em; line-height: 1.6;">
@@ -637,8 +638,7 @@ $ ./quadrasimples examples/partida_completa.qs && ./quadravm out.qvm
         <strong>Repositório GitHub:</strong> APS-QuadraSimples-LogComp | 
         <strong>Autor:</strong> Daniel Marco Djanikian | 
         <strong>Curso:</strong> Engenharia da Computação - Insper | 
-        <strong>Disciplina:</strong> Lógica da Computação | 
-        <strong>Data:</strong> Dezembro 2025
+        <strong>Disciplina:</strong> Lógica da Computação
     </div>
     <h3 class="center" style="margin-top: 70px; font-size: 1.4em;">
         Obrigado!

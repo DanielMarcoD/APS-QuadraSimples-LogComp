@@ -50,81 +50,134 @@
 ### EBNF Completa
 
 ```ebnf
-PROGRAM = { STATEMENT } ;
+program = { statement } ;
 
-STATEMENT = BLOCK 
-          | IF_STMT 
-          | WHILE_STMT 
-          | SESSAO_STMT 
-          | TENNIS_CMD 
-          | ASSIGNMENT 
-          | EXPRESSION, ";" ;
+statement =
+      expr_stmt
+    | if_stmt
+    | while_stmt
+    | sessao_stmt
+    | block
+    | block , ";" ;
 
-BLOCK = "{", { STATEMENT }, "}" ;
+block = "{" , { statement } , "}" ;
 
-IF_STMT = "if", "(", BOOL_EXPR, ")", BLOCK, [ "else", BLOCK ], ";" ;
 
-WHILE_STMT = "while", "(", BOOL_EXPR, ")", BLOCK, ";" ;
+expr_stmt =
+      assignment , ";"
+    | log_stmt , ";"
+    | print_stmt , ";"
+    | etapa_stmt , ";"
+    | descanso_stmt , ";"
+    | saque_stmt , ";"
+    | rally_stmt , ";"
+    | start_stmt , ";"
+    | point_stmt , ";"
+    | ace_stmt , ";"
+    | fault_stmt , ";"
+    | doublefault_stmt , ";"
+    | score_stmt , ";"
+    | rename_stmt , ";"
+    | config_stmt , ";" ;
 
-SESSAO_STMT = "sessao", "(", STRING, ")", BLOCK, ";" ;
+assignment = identifier , "=" , bool_expr ;
 
-TENNIS_CMD = START_CMD 
-           | POINT_CMD 
-           | ACE_CMD 
-           | DOUBLEFAULT_CMD 
-           | SAQUE_CMD 
-           | RALLY_CMD 
-           | SCORE_CMD 
-           | CONFIG_CMD 
-           | ETAPA_CMD 
-           | DESCANSO_CMD 
-           | RENAME_CMD ;
+log_stmt   = "log"   , "(" , bool_expr , ")" ;
+print_stmt = "print" , "(" , string    , ")" ;
 
-START_CMD = "start", "(", STRING, ",", STRING, ")", ";" ;
-POINT_CMD = "point", "(", PLAYER, ")", ";" ;
-ACE_CMD = "ace", "(", PLAYER, ")", ";" ;
-DOUBLEFAULT_CMD = "doublefault", "(", PLAYER, ")", ";" ;
-SAQUE_CMD = "saque", "(", PLAYER, ",", STRING, ")", ";" ;
-RALLY_CMD = "rally", "(", PLAYER, ",", STRING, ")", ";" ;
-SCORE_CMD = "score", "(", ")", ";" ;
-CONFIG_CMD = "config", "(", STRING, ",", EXPRESSION, ")", ";" ;
-ETAPA_CMD = "etapa", "(", STRING, [ ",", PARAM ], ")", ";" ;
-DESCANSO_CMD = "descanso", "(", EXPRESSION, ")", ";" ;
-RENAME_CMD = "rename", "(", PLAYER, ",", STRING, ")", ";" ;
 
-ASSIGNMENT = IDENTIFIER, "=", EXPRESSION, ";" ;
+while_stmt = "while" , "(" , bool_expr , ")" , block , ";" ;
 
-BOOL_EXPR = REL_EXPR, { ("&&" | "||"), REL_EXPR } ;
+if_stmt = "if" , "(" , bool_expr , ")" , block , [ if_continuation ] , ";" ;
 
-REL_EXPR = EXPRESSION, [ ("==" | "!=" | "<" | ">" | "<=" | ">="), EXPRESSION ] ;
+if_continuation = "else" , block ;
 
-EXPRESSION = TERM, { ("+" | "-"), TERM } ;
 
-TERM = FACTOR, { ("*" | "/"), FACTOR } ;
+sessao_stmt = "sessao" , "(" , string , ")" , block , ";" ;
 
-FACTOR = "(", EXPRESSION, ")" 
-       | NUMBER 
-       | IDENTIFIER 
-       | READLINE_EXPR 
-       | STRING 
-       | PLAYER ;
+etapa_stmt = "etapa" , "(" , string , "," , etapa_type , "=" , expression , ")" ;
 
-READLINE_EXPR = "readline", "(", ")" ;
+etapa_type = "dur" | "reps" ;
 
-PLAYER = "A" | "B" ;
+descanso_stmt = "descanso" , "(" , expression , ")" ;
 
-PARAM = "dur", "=", NUMBER 
-      | "reps", "=", NUMBER ;
+saque_stmt = "saque" , "(" , player , "," , string , ")" ;
 
-NUMBER = DIGIT, { DIGIT } ;
+rally_stmt = "rally" , "(" , expression , ")" ;
 
-DIGIT = "0" | "1" | "2" | "3" | "4" | "5" | "6" | "7" | "8" | "9" ;
+start_stmt = "start_match" , "(" , expression , "," , expression , ")" ;
 
-IDENTIFIER = LETTER, { LETTER | DIGIT | "_" } ;
+point_stmt = "point" , "(" , player , ")" ;
 
-LETTER = "a" | ... | "z" | "A" | ... | "Z" ;
+ace_stmt = "ace" , "(" , player , ")" ;
 
-STRING = '"', { CHARACTER }, '"' ;
+fault_stmt = "fault" , "(" , player , ")" ;
+
+doublefault_stmt = "double_fault" , "(" , player , ")" ;
+
+score_stmt = "score" , "(" , ")" ;
+
+rename_stmt = "rename" , "(" , player , "," , string , ")" ;
+
+config_stmt = "config" , "(" , cfgkey , "=" , bool_expr , ")" ;
+
+player = "A" | "B" ;
+
+cfgkey = "no_ad" | "shot_clock" ;
+
+
+bool_expr = bool_term , { "||" , bool_term } ;
+
+bool_term = rel_expr , { "&&" , rel_expr } ;
+
+rel_expr = expression , [ rel_op , expression ] ;
+
+rel_op = "===" | ">" | "<" ;
+
+expression = term , { add_op , term } ;
+
+add_op = "+" | "-" ;
+
+term = factor , { mul_op , factor } ;
+
+mul_op = "*" | "/" ;
+
+factor =
+      number
+    | "true"
+    | "false"
+    | identifier
+    | readline_call
+    | sensor
+    | "(" , bool_expr , ")"
+    | "+" , factor
+    | "-" , factor
+    | "!" , factor ;
+
+readline_call = "readline" , "(" , ")" ;
+
+sensor = "last_rally" | "total_points" ;
+
+
+identifier = letter , { letter | digit | "_" } ;
+
+number = digit , { digit } ;
+
+string = '"' , { char_except_quote } , '"' ;
+
+letter =
+      "a" | "b" | "c" | "d" | "e" | "f" | "g" | "h" | "i" | "j"
+    | "k" | "l" | "m" | "n" | "o" | "p" | "q" | "r" | "s" | "t"
+    | "u" | "v" | "w" | "x" | "y" | "z"
+    | "A" | "B" | "C" | "D" | "E" | "F" | "G" | "H" | "I" | "J"
+    | "K" | "L" | "M" | "N" | "O" | "P" | "Q" | "R" | "S" | "T"
+    | "U" | "V" | "W" | "X" | "Y" | "Z" ;
+
+digit = "0" | "1" | "2" | "3" | "4" | "5" | "6" | "7" | "8" | "9" ;
+
+char_except_quote = ? qualquer caractere exceto '"' e caracteres de escape ? ;
+
+comment = "//" , { any_char } , newline ;
 ```
 
 > **Documentação completa**: [docs/gramatica-ebnf.md](docs/gramatica-ebnf.md)
