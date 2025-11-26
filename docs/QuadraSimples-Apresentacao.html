@@ -283,25 +283,28 @@ expr_stmt = assignment | log_stmt | print_stmt | etapa_stmt
           | score_stmt | rename_stmt | config_stmt ;
 
 <strong>Controle de Fluxo:</strong>
-if_stmt    = "if" "(" bool_expr ")" block [ "else" block ] ";" ;
-while_stmt = "while" "(" bool_expr ")" block ";" ;
+if_stmt    = "if" , "(" , bool_expr , ")" , block , [ "else" , block ] , ";" ;
+while_stmt = "while" , "(" , bool_expr , ")" , block , ";" ;
 
 <strong>DSL de Tênis:</strong>
-sessao_stmt = "sessao" "(" string ")" block ";" ;
-etapa_stmt  = "etapa" "(" string "," etapa_type "=" expression ")" ";" ;
-rally_stmt  = "rally" "(" expression ")" ";" ;
-point_stmt  = "point" "(" player ")" ";" ;
+sessao_stmt = "sessao" , "(" , string , ")" , block , ";" ;
+etapa_stmt  = "etapa" , "(" , string , "," , etapa_type , "=" , expression , ")" , ";" ;
+rally_stmt  = "rally" , "(" , expression , ")" , ";" ;
+point_stmt  = "point" , "(" , player , ")" , ";" ;
 
 <strong>Expressões Booleanas:</strong>
-bool_expr  = bool_term { "||" bool_term } ;
-bool_term  = rel_expr { "&&" rel_expr } ;
-rel_expr   = expression [ ("===" | ">" | "<") expression ] ;
+bool_expr  = bool_term , { "||" , bool_term } ;
+bool_term  = rel_expr , { "&&" , rel_expr } ;
+rel_expr   = expression , [ rel_op , expression ] ;
+rel_op     = "===" | ">" | "<" ;
 
 <strong>Expressões Aritméticas:</strong>
-expression = term { ("+" | "-") term } ;
-term       = factor { ("*" | "/") factor } ;
-factor     = number | identifier | sensor | "(" bool_expr ")" 
-           | "+" factor | "-" factor | "!" factor ;
+expression = term , { add_op , term } ;
+add_op     = "+" | "-" ;
+term       = factor , { mul_op , factor } ;
+mul_op     = "*" | "/" ;
+factor     = number | identifier | sensor | "(" , bool_expr , ")" 
+           | "+" , factor | "-" , factor | "!" , factor ;
 </pre>
     <div class="highlight" style="margin-top: 10px; font-size: 1.05em;">
         <strong>Documentação completa:</strong> <code>docs/gramatica-ebnf.md</code> 
