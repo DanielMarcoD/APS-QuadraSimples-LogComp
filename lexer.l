@@ -25,6 +25,7 @@ STR  \"([^\\\n\"]|\\.)*\"
 "else"          { return ELSE; }
 "while"         { return WHILE; }
 "log"           { return LOG; }
+"print"         { return PRINT; }
 "true"          { return TRUE; }
 "false"         { return FALSE; }
 
@@ -45,6 +46,9 @@ STR  \"([^\\\n\"]|\\.)*\"
 "shot_clock"    { return SHOT_CLOCK; }
 "A"             { return PLAYER_A; }
 "B"             { return PLAYER_B; }
+
+"last_rally"    { return LAST_RALLY; }
+"total_points"  { return TOTAL_POINTS; }
 
 "readline"      { return READLINE; }
 

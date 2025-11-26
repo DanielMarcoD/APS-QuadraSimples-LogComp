@@ -1,4 +1,5 @@
-// bloco inicial
+// examples/demo.qs
+
 {
   sessao("Aquecimento") {
     etapa("Mobilidade", dur=180);
@@ -18,14 +19,13 @@ while (s < series) {
 
   if (acertos > alvo) {
     alvo = alvo + 1;
-  };
+  }
   else {
     alvo = alvo;
   };
-  ;
 
   s = s + 1;
-};  ;   // <- dois ; aqui: um fecha o bloco, o outro fecha o WHILE
+};
 
 config(no_ad = true);
 start_match(3, 6);

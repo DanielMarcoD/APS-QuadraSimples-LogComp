@@ -50,8 +50,9 @@ extern int yydebug;
   #include <stdio.h>
   #include <stdlib.h>
   #include <string.h>
+  #include "codegen.h"
 
-#line 55 "parser.tab.h"
+#line 56 "parser.tab.h"
 
 /* Token kinds.  */
 #ifndef YYTOKENTYPE
@@ -67,46 +68,50 @@ extern int yydebug;
     ELSE = 260,                    /* ELSE  */
     WHILE = 261,                   /* WHILE  */
     LOG = 262,                     /* LOG  */
-    SESSAO = 263,                  /* SESSAO  */
-    ETAPA = 264,                   /* ETAPA  */
-    DESCANSO = 265,                /* DESCANSO  */
-    SAQUE = 266,                   /* SAQUE  */
-    RALLY = 267,                   /* RALLY  */
-    START = 268,                   /* START  */
-    POINT = 269,                   /* POINT  */
-    ACE = 270,                     /* ACE  */
-    FAULT = 271,                   /* FAULT  */
-    DOUBLEFAULT = 272,             /* DOUBLEFAULT  */
-    SCORE = 273,                   /* SCORE  */
-    RENAME = 274,                  /* RENAME  */
-    CONFIG = 275,                  /* CONFIG  */
-    NO_AD = 276,                   /* NO_AD  */
-    SHOT_CLOCK = 277,              /* SHOT_CLOCK  */
-    PLAYER_A = 278,                /* PLAYER_A  */
-    PLAYER_B = 279,                /* PLAYER_B  */
-    TRUE = 280,                    /* TRUE  */
-    FALSE = 281,                   /* FALSE  */
-    READLINE = 282,                /* READLINE  */
-    IDENT = 283,                   /* IDENT  */
-    STRING = 284,                  /* STRING  */
-    NUMBER = 285,                  /* NUMBER  */
-    OR = 286,                      /* OR  */
-    AND = 287,                     /* AND  */
-    EQ3 = 288,                     /* EQ3  */
-    LT = 289,                      /* LT  */
-    GT = 290,                      /* GT  */
-    PLUS = 291,                    /* PLUS  */
-    MINUS = 292,                   /* MINUS  */
-    TIMES = 293,                   /* TIMES  */
-    DIV = 294,                     /* DIV  */
-    NOT = 295,                     /* NOT  */
-    ASSIGN = 296,                  /* ASSIGN  */
-    LPAREN = 297,                  /* LPAREN  */
-    RPAREN = 298,                  /* RPAREN  */
-    LBRACE = 299,                  /* LBRACE  */
-    RBRACE = 300,                  /* RBRACE  */
-    COMMA = 301,                   /* COMMA  */
-    SEMI = 302                     /* SEMI  */
+    PRINT = 263,                   /* PRINT  */
+    SESSAO = 264,                  /* SESSAO  */
+    ETAPA = 265,                   /* ETAPA  */
+    DESCANSO = 266,                /* DESCANSO  */
+    SAQUE = 267,                   /* SAQUE  */
+    RALLY = 268,                   /* RALLY  */
+    START = 269,                   /* START  */
+    POINT = 270,                   /* POINT  */
+    ACE = 271,                     /* ACE  */
+    FAULT = 272,                   /* FAULT  */
+    DOUBLEFAULT = 273,             /* DOUBLEFAULT  */
+    SCORE = 274,                   /* SCORE  */
+    RENAME = 275,                  /* RENAME  */
+    CONFIG = 276,                  /* CONFIG  */
+    NO_AD = 277,                   /* NO_AD  */
+    SHOT_CLOCK = 278,              /* SHOT_CLOCK  */
+    PLAYER_A = 279,                /* PLAYER_A  */
+    PLAYER_B = 280,                /* PLAYER_B  */
+    TRUE = 281,                    /* TRUE  */
+    FALSE = 282,                   /* FALSE  */
+    READLINE = 283,                /* READLINE  */
+    LAST_RALLY = 284,              /* LAST_RALLY  */
+    TOTAL_POINTS = 285,            /* TOTAL_POINTS  */
+    IDENT = 286,                   /* IDENT  */
+    STRING = 287,                  /* STRING  */
+    NUMBER = 288,                  /* NUMBER  */
+    OR = 289,                      /* OR  */
+    AND = 290,                     /* AND  */
+    EQ3 = 291,                     /* EQ3  */
+    LT = 292,                      /* LT  */
+    GT = 293,                      /* GT  */
+    PLUS = 294,                    /* PLUS  */
+    MINUS = 295,                   /* MINUS  */
+    TIMES = 296,                   /* TIMES  */
+    DIV = 297,                     /* DIV  */
+    NOT = 298,                     /* NOT  */
+    ASSIGN = 299,                  /* ASSIGN  */
+    LPAREN = 300,                  /* LPAREN  */
+    RPAREN = 301,                  /* RPAREN  */
+    LBRACE = 302,                  /* LBRACE  */
+    RBRACE = 303,                  /* RBRACE  */
+    COMMA = 304,                   /* COMMA  */
+    SEMI = 305,                    /* SEMI  */
+    LOWER_THAN_ELSE = 306          /* LOWER_THAN_ELSE  */
   };
   typedef enum yytokentype yytoken_kind_t;
 #endif
@@ -115,12 +120,12 @@ extern int yydebug;
 #if ! defined YYSTYPE && ! defined YYSTYPE_IS_DECLARED
 union YYSTYPE
 {
-#line 12 "parser.y"
+#line 13 "parser.y"
 
   int   ival;
   char* sval;
 
-#line 124 "parser.tab.h"
+#line 129 "parser.tab.h"
 
 };
 typedef union YYSTYPE YYSTYPE;

@@ -1,0 +1,23 @@
+# Arquivos gerados pelo compilador (Flex/Bison)
+parser.tab.c
+parser.tab.h
+lex.yy.c
+
+# Arquivos objeto
+*.o
+
+# Binários executáveis
+quadrasimples
+quadravm
+
+# Arquivo de saída assembly da VM
+out.qvm
+
+# Arquivos temporários do editor
+*~
+*.swp
+*.swo
+
+# Diretórios de build (se houver)
+build/
+dist/
