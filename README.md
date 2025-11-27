@@ -569,6 +569,8 @@ APS-QuadraSimples-LogComp/
 │
 ├── docs/
 │   └── gramatica-ebnf.md     # Gramática formal em EBNF
+│   └── QuadraSimples-Apresentacao.html    # Slides html
+│   └── QuadraSimples-Apresentacao.pdf     # Slides PDF
 │
 ├── lexer.l                   # Analisador léxico (Flex)
 ├── parser.y                  # Analisador sintático (Bison)
@@ -599,11 +601,3 @@ make clean
 
 ---
 
-**Desenvolvido para a disciplina de Lógica da Computação - Insper**
-
-### Exemplo de uso
-O arquivo `examples/demo.qs` contém um exemplo completo que demonstra:
-- Definição de sessões de treino
-- Estruturas de controle (while, if/else)
-- Operações aritméticas e lógicas
-- Configurações específicas do tênis
