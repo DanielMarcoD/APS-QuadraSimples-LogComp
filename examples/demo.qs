@@ -32,4 +32,6 @@ start_match(3, 6);
 saque(B, "deuce");
 point(B);
 ace(B);
+point(B);
+point(B);
 score();

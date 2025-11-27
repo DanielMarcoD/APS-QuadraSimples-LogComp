@@ -25,6 +25,8 @@ rally(5);
 ace(A);
 rally(6);
 point(A);
+rally(7);
+point(A);
 score();
 
 print("--- Game 2 (Saque: Federer) ---");
@@ -38,6 +40,8 @@ rally(7);
 point(A);
 rally(9);
 ace(B);
+rally(6);
+point(B);
 score();
 
 print("--- Game 3 (Saque: Nadal) ---");
@@ -49,6 +53,8 @@ point(A);
 fault(A);
 double_fault(A);
 rally(11);
+point(A);
+rally(9);
 point(A);
 score();
 
